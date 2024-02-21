@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "90186424026",
-    "project_id": "appcredarspp27",
-    "storage_bucket": "appcredarspp27.appspot.com"
+    "project_number": "102936396689",
+    "project_id": "financial-savings-tracker",
+    "storage_bucket": "financial-savings-tracker.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:90186424026:android:27021dac8212be03694fe3",
+        "mobilesdk_app_id": "1:102936396689:android:d98be801daefac9e7b9030",
         "android_client_info": {
           "package_name": "com.example.pp_26"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyA1pxZ0gDzGgEdBRdcCWHcju_aCb4poWdA"
+          "current_key": "AIzaSyD7BT6NuLnKkAXoYYz3KYsgSGQev_akzjk"
         }
       ],
       "services": {

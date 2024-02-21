@@ -28,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -47,28 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyA1pxZ0gDzGgEdBRdcCWHcju_aCb4poWdA',
-    appId: '1:90186424026:android:27021dac8212be03694fe3',
-    messagingSenderId: '90186424026',
-    projectId: 'appcredarspp27',
-    storageBucket: 'appcredarspp27.appspot.com',
+    apiKey: 'AIzaSyD7BT6NuLnKkAXoYYz3KYsgSGQev_akzjk',
+    appId: '1:102936396689:android:d98be801daefac9e7b9030',
+    messagingSenderId: '102936396689',
+    projectId: 'financial-savings-tracker',
+    storageBucket: 'financial-savings-tracker.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAQ3NF9KnOQrowQLWXPoKkHW_Ofp1YKHDE',
-    appId: '1:90186424026:ios:caed20d9b8bfcb0f694fe3',
-    messagingSenderId: '90186424026',
-    projectId: 'appcredarspp27',
-    storageBucket: 'appcredarspp27.appspot.com',
-    iosBundleId: 'com.example.pp26',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyAQ3NF9KnOQrowQLWXPoKkHW_Ofp1YKHDE',
-    appId: '1:90186424026:ios:535b93b67e9102c8694fe3',
-    messagingSenderId: '90186424026',
-    projectId: 'appcredarspp27',
-    storageBucket: 'appcredarspp27.appspot.com',
-    iosBundleId: 'com.example.pp26.RunnerTests',
+    apiKey: 'AIzaSyDxQaGEJTC3keGOKbIuSuaGJvrX7UlMqoM',
+    appId: '1:102936396689:ios:632f98f12ec4e5e87b9030',
+    messagingSenderId: '102936396689',
+    projectId: 'financial-savings-tracker',
+    storageBucket: 'financial-savings-tracker.appspot.com',
+    iosBundleId: 'com.savtrack.DE18PP',
   );
 }

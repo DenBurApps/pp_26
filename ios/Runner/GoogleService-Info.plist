@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyAQ3NF9KnOQrowQLWXPoKkHW_Ofp1YKHDE</string>
+	<string>AIzaSyDxQaGEJTC3keGOKbIuSuaGJvrX7UlMqoM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>90186424026</string>
+	<string>102936396689</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.pp26</string>
+	<string>com.savtrack.DE18PP</string>
 	<key>PROJECT_ID</key>
-	<string>appcredarspp27</string>
+	<string>financial-savings-tracker</string>
 	<key>STORAGE_BUCKET</key>
-	<string>appcredarspp27.appspot.com</string>
+	<string>financial-savings-tracker.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:90186424026:ios:caed20d9b8bfcb0f694fe3</string>
+	<string>1:102936396689:ios:632f98f12ec4e5e87b9030</string>
 </dict>
 </plist>
