@@ -1,14 +1,11 @@
 import 'dart:async';
 import 'dart:developer';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_26/business/helpers/dialog_helper.dart';
-import 'package:pp_26/business/helpers/image/image_helper.dart';
 import 'package:pp_26/business/services/navigation/route_names.dart';
 import 'package:pp_26/data/repository/database_keys.dart';
 import 'package:pp_26/data/repository/database_service.dart';
