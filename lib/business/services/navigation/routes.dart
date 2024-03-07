@@ -17,10 +17,7 @@ class Routes {
       RouteNames.main: (context) => const MainScreen(),
       RouteNames.home: (context) => const HomeView(),
       RouteNames.onboarding: (context) => const OnboardingView(),
-      RouteNames.agreement: (context) {
-        final arg = ModalRoute.of(context)!.settings.arguments as AgreementType;
-        return AgreementView(agreementType: arg);
-      },
+      RouteNames.agreement: (context) => AgreementView.create(context), 
       RouteNames.support: (context) => const SupportView(),
       RouteNames.privacy: (context) => const PrivacyView(),
     };

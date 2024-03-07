@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:pp_26/business/helpers/email_helper.dart';
 import 'package:pp_26/business/helpers/image/image_helper.dart';
 import 'package:pp_26/business/services/navigation/route_names.dart';
+import 'package:pp_26/models/arguements.dart';
 import 'package:pp_26/presentation/pages/agreement_view.dart';
 import 'package:pp_26/presentation/themes/custom_colors.dart';
 import 'package:pp_26/presentation/widgets/app_button.dart';
@@ -36,10 +37,12 @@ class _SettingsViewState extends State<SettingsView> {
                 child: Text(
                   text,
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
-                    color: isDone
-                        ? Theme.of(context).colorScheme.onPrimary
-                        : Theme.of(context).extension<CustomColors>()!.goalStepper,
-                  ),
+                        color: isDone
+                            ? Theme.of(context).colorScheme.onPrimary
+                            : Theme.of(context)
+                                .extension<CustomColors>()!
+                                .goalStepper,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ),
@@ -54,15 +57,24 @@ class _SettingsViewState extends State<SettingsView> {
       subject: 'Connect with support',
       body: feedbackController.text,
       errorCallback: () => _showDialog(text: 'Error', isDone: false),
-      doneCallback: () => _showDialog(text: 'Thank you for feedback!', isDone: true),
+      doneCallback: () =>
+          _showDialog(text: 'Thank you for feedback!', isDone: true),
     );
   }
 
-  void _navigateTerms(context) =>
-      Navigator.of(context).pushNamed(RouteNames.agreement, arguments: AgreementType.terms);
+  void _navigateTerms(context) => Navigator.of(context).pushNamed(
+        RouteNames.agreement,
+        arguments: AgreementViewArguments(
+          agreementType: AgreementType.terms,
+        ),
+      );
 
-  void _navigatePrivacy(context) =>
-      Navigator.of(context).pushNamed(RouteNames.agreement, arguments: AgreementType.privacy);
+  void _navigatePrivacy(context) => Navigator.of(context).pushNamed(
+        RouteNames.agreement,
+        arguments: AgreementViewArguments(
+          agreementType: AgreementType.privacy,
+        ),
+      );
 
   void _openContacts(context) {
     showCupertinoModalPopup(
@@ -70,13 +82,15 @@ class _SettingsViewState extends State<SettingsView> {
       context: context,
       builder: (BuildContext context) {
         return StatefulBuilder(
-          builder: (BuildContext context, void Function(void Function()) setState) {
+          builder:
+              (BuildContext context, void Function(void Function()) setState) {
             return Container(
               width: double.infinity,
               padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
               decoration: BoxDecoration(
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(50), topRight: Radius.circular(50)),
+                    topLeft: Radius.circular(50),
+                    topRight: Radius.circular(50)),
                 color: Theme.of(context).colorScheme.onPrimary,
               ),
               child: Column(
@@ -86,34 +100,49 @@ class _SettingsViewState extends State<SettingsView> {
                   Row(
                     children: [
                       const Spacer(),
-                    const SizedBox(width: 50),
-                    Text('Contact Developer', style: Theme.of(context).textTheme.labelMedium,),
-                    const Spacer(),
-                    CupertinoButton(child: const Icon(Icons.close, color: Color(0xFF0A191E),), onPressed: () => Navigator.of(context).pop())
+                      const SizedBox(width: 50),
+                      Text(
+                        'Contact Developer',
+                        style: Theme.of(context).textTheme.labelMedium,
+                      ),
+                      const Spacer(),
+                      CupertinoButton(
+                          child: const Icon(
+                            Icons.close,
+                            color: Color(0xFF0A191E),
+                          ),
+                          onPressed: () => Navigator.of(context).pop())
                     ],
                   ),
                   const SizedBox(height: 15),
-                  Text('Write anything you want to tell us about', style: Theme.of(context).textTheme.labelMedium),
+                  Text('Write anything you want to tell us about',
+                      style: Theme.of(context).textTheme.labelMedium),
                   const SizedBox(height: 10),
                   CupertinoTextField(
                     controller: feedbackController,
                     maxLength: 8,
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 7),
                     decoration: BoxDecoration(
                         color: CupertinoColors.secondarySystemFill,
                         borderRadius: BorderRadius.circular(10)),
                     placeholder: 'Send your message',
-                    placeholderStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                        color:
-                            Theme.of(context).extension<CustomColors>()!.label!.withOpacity(0.6)),
-                    style: Theme.of(context)
+                    placeholderStyle: Theme.of(context)
                         .textTheme
                         .bodyLarge!
-                        .copyWith(color: Theme.of(context).extension<CustomColors>()!.label),
+                        .copyWith(
+                            color: Theme.of(context)
+                                .extension<CustomColors>()!
+                                .label!
+                                .withOpacity(0.6)),
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                        color:
+                            Theme.of(context).extension<CustomColors>()!.label),
                   ),
                   const SizedBox(height: 40),
                   AppButton(
-                    margin: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+                    margin: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
                     name: 'Send',
                     textColor: Theme.of(context).colorScheme.onPrimary,
                     width: double.infinity,
@@ -149,22 +178,26 @@ class _SettingsViewState extends State<SettingsView> {
               ),
               const SizedBox(height: 80),
               SettingsItem(
-                  icon: ImageHelper.svgImage(SvgNames.share, width: 26, height: 26),
+                  icon: ImageHelper.svgImage(SvgNames.share,
+                      width: 26, height: 26),
                   label: 'Share app',
                   callback: () {}),
               const SizedBox(height: 10),
               SettingsItem(
-                  icon: ImageHelper.svgImage(SvgNames.lock, width: 26, height: 26),
+                  icon: ImageHelper.svgImage(SvgNames.lock,
+                      width: 26, height: 26),
                   label: 'Privacy Policy',
                   callback: () => _navigatePrivacy(context)),
               const SizedBox(height: 10),
               SettingsItem(
-                  icon: ImageHelper.svgImage(SvgNames.key, width: 26, height: 26),
+                  icon:
+                      ImageHelper.svgImage(SvgNames.key, width: 26, height: 26),
                   label: 'Terms of use',
                   callback: () => _navigateTerms(context)),
               const SizedBox(height: 10),
               SettingsItem(
-                  icon: ImageHelper.svgImage(SvgNames.calling, width: 26, height: 26),
+                  icon: ImageHelper.svgImage(SvgNames.calling,
+                      width: 26, height: 26),
                   label: 'Contact Developer',
                   callback: () => _openContacts(context)),
             ],
@@ -176,7 +209,11 @@ class _SettingsViewState extends State<SettingsView> {
 }
 
 class SettingsItem extends StatelessWidget {
-  const SettingsItem({super.key, required this.icon, required this.label, required this.callback});
+  const SettingsItem(
+      {super.key,
+      required this.icon,
+      required this.label,
+      required this.callback});
 
   final Widget icon;
   final String label;

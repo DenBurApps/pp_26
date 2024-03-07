@@ -7,8 +7,11 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get_it/get_it.dart';
 import 'package:pp_26/business/helpers/dialog_helper.dart';
 import 'package:pp_26/business/services/navigation/route_names.dart';
+import 'package:pp_26/business/services/remote_config_service.dart';
 import 'package:pp_26/data/repository/database_keys.dart';
 import 'package:pp_26/data/repository/database_service.dart';
+import 'package:pp_26/models/arguements.dart';
+import 'package:pp_26/presentation/pages/agreement_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -18,8 +21,11 @@ class SplashView extends StatefulWidget {
 }
 
 class _SplashViewState extends State<SplashView> {
+  final _remoteConfigService = GetIt.instance<RemoteConfigService>();
   final _databaseService = GetIt.instance<DatabaseService>();
   final _connectivity = Connectivity();
+
+  late bool usePrivacyAgreement;
 
   @override
   void initState() {
@@ -29,9 +35,9 @@ class _SplashViewState extends State<SplashView> {
 
   Future<void> _init() async {
     await _initConnectivity(
-          () async => await DialogHelper.showNoInternetDialog(context),
+      () async => await DialogHelper.showNoInternetDialog(context),
     );
-
+    usePrivacyAgreement = _remoteConfigService.getBool(ConfigKey.usePrivacy);
     _navigate();
   }
 
@@ -54,20 +60,37 @@ class _SplashViewState extends State<SplashView> {
   }
 
   void _navigate() {
-    FlutterNativeSplash.remove();
-    final seenOnboarding =
-        _databaseService.get(DatabaseKeys.seenOnboarding) ?? false;
-
-    if (!seenOnboarding) {
-      Navigator.of(context).pushReplacementNamed(RouteNames.onboarding);
+    if (usePrivacyAgreement) {
+      final seenOnboarding =
+          _databaseService.get(DatabaseKeys.seenOnboarding) ?? false;
+      if (!seenOnboarding) {
+        Navigator.of(context).pushReplacementNamed(RouteNames.onboarding);
+      } else {
+        final seenPrivacyAgreement =
+            _databaseService.get(DatabaseKeys.seenPrivacyAgreement) ?? false;
+        if (!seenPrivacyAgreement) {
+          _databaseService.put(DatabaseKeys.seenPrivacyAgreement, true);
+          DialogHelper.showPrivacyAgreementDialog(
+            context,
+            yes: () => Navigator.of(context).pushReplacementNamed(
+              RouteNames.agreement,
+              arguments: AgreementViewArguments(
+                agreementType: AgreementType.privacy,
+                userPrivacyAgreement: true,
+              ),
+            ),
+            no: () => Navigator.of(context).pushReplacementNamed(
+              RouteNames.main,
+            ),
+          );
+        } else {
+          Navigator.of(context).pushReplacementNamed(RouteNames.main);
+        }
+      }
     } else {
-      Navigator.of(context).pushReplacementNamed(RouteNames.main);
-      final acceptedPrivacy =
-          _databaseService.get(DatabaseKeys.acceptedPrivacy) ?? false;
-      Navigator.of(context).pushReplacementNamed(
-        !acceptedPrivacy ? RouteNames.privacy : RouteNames.main,
-      );
+      Navigator.of(context).pushReplacementNamed(RouteNames.privacy);
     }
+    FlutterNativeSplash.remove();
   }
 
   @override

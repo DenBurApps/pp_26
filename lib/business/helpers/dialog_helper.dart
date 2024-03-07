@@ -3,7 +3,8 @@ import 'package:flutter_app_info/flutter_app_info.dart';
 import 'package:pp_26/business/services/navigation/route_names.dart';
 
 class DialogHelper {
-  static Future<void> showNoInternetDialog(BuildContext context) async => await showCupertinoDialog(
+  static Future<void> showNoInternetDialog(BuildContext context) async =>
+      await showCupertinoDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) => CupertinoAlertDialog(
@@ -25,7 +26,8 @@ class DialogHelper {
         ),
       );
 
-  static Future<void> showErrorDialog(BuildContext context, String error) async =>
+  static Future<void> showErrorDialog(
+          BuildContext context, String error) async =>
       await showCupertinoDialog(
         context: context,
         barrierDismissible: false,
@@ -71,6 +73,38 @@ class DialogHelper {
               style: TextStyle().copyWith(color: CupertinoColors.activeBlue),
             ),
             onPressed: Navigator.of(context).pop,
+          ),
+        ],
+      ),
+    );
+  }
+
+  static Future<void> showPrivacyAgreementDialog(
+    BuildContext context, {
+    VoidCallback? yes,
+    VoidCallback? no,
+  }) async {
+    await showCupertinoDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => CupertinoAlertDialog(
+        title: const Text('Dear user!'),
+        content: const Text(
+            'We would be very grateful if you would read the policy of our application and accept the consent. Do you want to continue?'),
+        actions: <Widget>[
+          CupertinoDialogAction(
+            child: const Text('YES'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              yes?.call();
+            },
+          ),
+          CupertinoDialogAction(
+            child: const Text('NO'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              no?.call();
+            },
           ),
         ],
       ),

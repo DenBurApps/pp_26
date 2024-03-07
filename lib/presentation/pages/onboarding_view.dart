@@ -2,10 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pp_26/business/helpers/dialog_helper.dart';
 import 'package:pp_26/business/helpers/image/image_helper.dart';
 import 'package:pp_26/business/services/navigation/route_names.dart';
 import 'package:pp_26/data/repository/database_keys.dart';
 import 'package:pp_26/data/repository/database_service.dart';
+import 'package:pp_26/models/arguements.dart';
+import 'package:pp_26/presentation/pages/agreement_view.dart';
 import 'package:pp_26/presentation/widgets/app_button.dart';
 import 'package:pp_26/presentation/widgets/step_divider.dart';
 
@@ -41,12 +44,25 @@ class _OnboardingViewState extends State<OnboardingView> {
 
   void _increaseStep() {
     if (currentStep == 2) {
-      Navigator.of(context).pushReplacementNamed(RouteNames.main);
-      return;
+      _databaseService.put(DatabaseKeys.seenPrivacyAgreement, true);
+      DialogHelper.showPrivacyAgreementDialog(
+        context,
+        yes: () => Navigator.of(context).pushReplacementNamed(
+          RouteNames.agreement,
+          arguments: AgreementViewArguments(
+            agreementType: AgreementType.privacy,
+            userPrivacyAgreement: true,
+          ),
+        ),
+        no: () => Navigator.of(context).pushReplacementNamed(
+          RouteNames.main,
+        ),
+      );
+    } else {
+      setState(() {
+        currentStep += 1;
+      });
     }
-    setState(() {
-      currentStep += 1;
-    });
   }
 
   void _decreaseStep() {
@@ -85,9 +101,11 @@ class _OnboardingViewState extends State<OnboardingView> {
             children: [
               const SizedBox(height: 20),
               StepDivider(
-                fillPercentage: currentStep == 0 ? 0 : 100 - (100 / currentStep).round(),
+                fillPercentage:
+                    currentStep == 0 ? 0 : 100 - (100 / currentStep).round(),
                 width: double.infinity,
-                color: Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
+                color:
+                    Theme.of(context).colorScheme.onBackground.withOpacity(0.5),
                 filledColor: Theme.of(context).colorScheme.onBackground,
               ),
               const Spacer(),
